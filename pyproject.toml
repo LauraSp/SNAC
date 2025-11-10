@@ -1,0 +1,13 @@
+[project]
+name = 'snac'
+version = '0.1.0'
+authors = [
+    {name = "Laura Speich", email = "laura.speich@debeersgroup.com"}
+    ]
+
+readme = "README.md"
+
+[tool.setuptools]
+packages = [
+    "snac"
+   ]
