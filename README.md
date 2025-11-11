@@ -36,10 +36,10 @@ manualSNAC.ipynb
 This is the main package. It contains the following modules.
 
 #### diamond
-    This module defines the class Diamond. It is used for storing relevant information about a diamond (core, rim and kimberlite ages as well as nitrogen aggregation data). Diamond objects can be created from json files (Diamond.from_json() method) and stored as json files (Diamond.to_json() method). A Diamond object instance is passed to the SNACmodel (see below).
+This module defines the class Diamond. It is used for storing relevant information about a diamond (core, rim and kimberlite ages as well as nitrogen aggregation data). Diamond objects can be created from json files (Diamond.from_json() method) and stored as json files (Diamond.to_json() method). A Diamond object instance is passed to the SNACmodel (see below).
 
-    Example:
-    ```
+Example:
+
     from snac.diamond import Diamond
     diamond = Diamond(
         age_core=3520,
@@ -50,13 +50,12 @@ This is the main package. It contains the following modules.
         r_NT=801,
         r_agg=0.197,
     )
-    ```
 
 #### SNACmodel
-    This module defines the class AggregationModel, which is used for the forward modelling of simultaneous nitrogen aggregation and cooling.
+This module defines the class AggregationModel, which is used for the forward modelling of simultaneous nitrogen aggregation and cooling.
 
-    Basic example:
-    ```
+Basic example:
+    
     from SNACmodel import AggregtionModel
     model = AggregationModel(
         diamond=diamond,
@@ -75,10 +74,9 @@ This is the main package. It contains the following modules.
 
     # save results
     model.save_history('SNACoutput.csv')
-    ```
 
-    Example with temperature scenario:
-    ```
+Example with temperature scenario:
+
     from SNACmodel import AggregtionModel
     model = AggregationModel(
         diamond=diamond,
@@ -99,9 +97,8 @@ This is the main package. It contains the following modules.
 
     # save results
     model.save_history('SNACoutput.csv')
-    ```
 
-    **Note**: using AggregationModel.get_history() or AggregationModel.plot_aggregation_history() without prior fitting (i.e. without using AggregationModel.optimise_history() first) will use the initial guesses forward model nitrogen aggregation and cooling. This can be useful to explore the effect of different parameters on the outcome.
+**Note**: using ```AggregationModel.get_history()``` or ```AggregationModel.plot_aggregation_history()``` without prior fitting (i.e. without using ```AggregationModel.optimise_history()``` first) will use the initial guesses forward model nitrogen aggregation and cooling. This can be useful to explore the effect of different parameters on the outcome.
 
 #### aggregation
 This module contains a number of functions, including the main function used to model simultaneous nitrogen aggregation:
@@ -110,7 +107,7 @@ This module contains a number of functions, including the main function used to 
 - **aggregate_and_cool**: the heart of the SNAC model. This function models simultaneous nitrogen aggregation and cooling, including temperature "scenarios"
 
 #### cooling
-    This module provides function describing cooling over time
+This module provides function describing cooling over time
 
 ### documentation
 This directory contains Ipython notebooks that show how the snac package can be used. Each notebook contains a worked example.
