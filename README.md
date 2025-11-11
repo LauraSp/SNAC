@@ -1,5 +1,5 @@
 # Simultaenous Nitrogen Aggregation and Cooling (SNAC)
-A module for modelling simultaneous nitrogen aggregation and cooling in diamond. See also Wincott et al. 2026[^1].
+A package for modelling simultaneous nitrogen aggregation and cooling in diamond. See also Wincott et al. 2026[^1].
 
 ## Requirements
 This package was developed under Python v. 3.12.9 All required packages are specified in requirements.txt
