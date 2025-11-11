@@ -32,5 +32,5 @@ packages = [
 autoSNAC = "snac.autoSNAC:main"
 
 [project.urls]
-Citation = ""
+Citation = "https://github.com/LauraSp/SNAC"
 Repository = "https://github.com/LauraSp/SNAC"
