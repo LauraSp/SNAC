@@ -6,12 +6,17 @@ build-backend = "setuptools.build_meta"
 name = 'snac'
 description = "Simultaeous Nitrogen Aggregation and Cooling (SNAC) model"
 version = '0.1.0'
-requires-python = '>=3.12'
+
 authors = [
     {name = "Laura Speich", email = "laura.speich@debeersgroup.com"}
     ]
+
+requires-python = '>=3.12'
+
 license = "MIT"
+license-files = ["LICEN[CS]E.*"]
 readme = "README.md"
+
 classifiers = [
     "Natural Language :: English",
     "Operating System :: Windows",
@@ -25,3 +30,7 @@ packages = [
 
 [project.scripts]
 autoSNAC = "snac.autoSNAC:main"
+
+[project.urls]
+Citation = ""
+Repository = "https://github.com/LauraSp/SNAC"
