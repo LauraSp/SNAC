@@ -9,9 +9,12 @@ This package was developed under Python v. 3.12.9 All required packages are spec
 2) Download or clone the SNAC package and copy into a directory of your choice
 3) Create a virtual environment in your working directory, then activate the newly created virtual environment:
     
-    ```python -m venv /path/to/new/virtual/environment```
+    ```python -m venv \path\to\new\virtual\environment```
+
+    or, in VSCode, open the Command Palette (Ctrl+Shift+P), search for the Python: Create Environment command, and select it. Then select a Python interpreter.
 
     ```.\venv\Scripts\activate```
+
 4) install dependencies
 
     ```pip install -r requirements.txt```
@@ -66,7 +69,7 @@ Basic example:
         dt=1
     )
     # fit model to measured N aggregation state of the diamond
-    model.optimise_history()
+    model.run()
 
     # plot results
     model.plot_T_history()
@@ -89,7 +92,7 @@ Example with temperature scenario:
         scenario_params=(50, 1000, 25)
     )
     # fit model to measured N aggregation state of the diamond
-    model.optimise_history()
+    model.run()
 
     # plot results
     model.plot_T_history()
@@ -98,7 +101,7 @@ Example with temperature scenario:
     # save results
     model.save_history('SNACoutput.csv')
 
-**Note**: using ```AggregationModel.get_history()``` or ```AggregationModel.plot_aggregation_history()``` without prior fitting (i.e. without using ```AggregationModel.optimise_history()``` first) will use the initial guesses forward model nitrogen aggregation and cooling. This can be useful to explore the effect of different parameters on the outcome.
+**Note**: using ```AggregationModel.get_history()``` or ```AggregationModel.plot_aggregation_history()``` without prior fitting (i.e. without using ```AggregationModel.run()``` first) will use the initial guesses forward model nitrogen aggregation and cooling. This can be useful to explore the effect of different parameters on the outcome.
 
 #### aggregation
 This module contains a number of functions, including the main function used to model simultaneous nitrogen aggregation:

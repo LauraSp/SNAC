@@ -79,7 +79,7 @@ class AggregationModel:
             return_history=return_history
             )
 
-    def durations(self):
+    def get_durations(self):
         """
         Determine incremental durations for model calulations.
 
@@ -94,7 +94,7 @@ class AggregationModel:
 
         return durations
 
-    def optimise_history(self):
+    def run(self):
         """
         Optimise the model history by fitting the cooling and aggregation
         parameters to the observed data.
@@ -106,7 +106,7 @@ class AggregationModel:
             x0=(self.T_start0, self.cooling_rate0),
             bounds=(self.T_bounds, self.rate_bounds),
             args=(
-                self.durations(),
+                self.get_durations(),
                 self.diamond.age_core, self.diamond.age_rim,
                 self.diamond.c_NT, self.diamond.r_NT,
                 self.diamond.c_agg, self.diamond.r_agg),
@@ -114,6 +114,9 @@ class AggregationModel:
             )
 
         self.model_results = res.x
+        self.model_success = res.success
+        self.model_status = res.status
+        self.model_message = res.message
         self.fitted = True
 
     def get_history(self):
@@ -143,7 +146,7 @@ class AggregationModel:
         acp = self.aggregate_and_cool_partial()
         NA_core, NA_rim, T_all = acp(
             params,
-            self.durations(),
+            self.get_durations(),
             self.diamond.age_core,
             self.diamond.age_rim,
             self.diamond.c_NT,
@@ -165,7 +168,7 @@ class AggregationModel:
             cooling_rate = self.cooling_rate0
 
         history = {
-            'durations': self.durations(),
+            'durations': self.get_durations(),
             'T_start': T_start,
             'cooling_rate': cooling_rate,
             'T_all': T_all,
@@ -183,7 +186,7 @@ class AggregationModel:
         T_all = self.get_history()['T_all']
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
-        ax.plot(self.durations(), T_all, 'k-', label='T')
+        ax.plot(self.get_durations(), T_all, 'k-', label='T')
 
         ax.set_xlabel('Time since core growth (Myr)')
         ax.set_ylabel('Temperature (deg.C)')
