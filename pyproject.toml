@@ -29,7 +29,7 @@ packages = [
    ]
 
 [project.scripts]
-autoSNAC = "snac.autoSNAC:main"
+autoSNAC = "snac.autoSNAC:model"
 
 [project.urls]
 Citation = "https://github.com/LauraSp/SNAC"
