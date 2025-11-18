@@ -19,9 +19,9 @@ class Diamond:
 
         PARAMS:
         --------
-        age_core | int: age of the core (Myr)
-        age_rim | int: age of the rim (Myr)
-        age_kimberlite | int: eruption age of the kimberlilte (Myr)
+        age_core | int: age of the core (Ma)
+        age_rim | int: age of the rim (Ma)
+        age_kimberlite | int: eruption age of the kimberlilte (Ma)
         c_NT | int: total nitrogen concentration in the core (ppm)
         c_agg | float: aggregation state of the core (proportion of N in B)
         r_NT | int: total nitrogen concentration in the rim (ppm)
