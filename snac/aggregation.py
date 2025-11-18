@@ -279,7 +279,6 @@ def aggregate_and_cool(params, *args, **kwargs):
 
     # calculate error
     # multiplying by 1000 for scaling purposes.
-    # It ain't stupid if it works, right?
     error = (
         (r_agg - r_agg_model)**2 + (c_agg - c_agg_model)**2
         ) * 1e3
