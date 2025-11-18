@@ -39,7 +39,7 @@ class AggregationModel:
             fitting of the form (lower, upper)
         dt | int : time step for model calculations (Myr)
         scenario | str : cooling scenario to use, one of 'continuous',
-            'hot_pulse', 'rapid_ascent', 'slow_ascent'
+            'hot_spike', 'rapid_ascent'
         scenario_params | dict (optional): parameters for the cooling scenario.
 
         For more information for scenarios and scenario_params, see

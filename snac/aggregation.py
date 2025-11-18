@@ -9,7 +9,7 @@ _EAR = 81160
 _PREEXP = 293608
 
 _SCENARIOS = [
-    'continuous', 'hot_pulse', 'hot_spike', 'rapid_ascent', 'slow_ascent'
+    'continuous', 'hot_spike', 'rapid_ascent'
     ]
 
 
@@ -79,10 +79,6 @@ def aggregate_and_cool(params, *args, **kwargs):
     T_scenario | str: the cooling scenario, one of the following:
         'continuous' assumes continouous cooling.
             No additional parameters are required.
-        'hot_pulse' assumes a period of heating at a specified time and
-            temperature. Requires scenario_params = (T_pulse, t_pulse_start,
-            pulse_duration)
-            Note: T_pulse is the relative increase in temperature
         'hot_spike' assumes a sharp spike in temperature at a specified time
             followed by rapid cooling until reaching continous trajectory.
             Requires scenario_params = (T_pulse, t_pulse_start, pulse_duration)
@@ -92,10 +88,6 @@ def aggregate_and_cool(params, *args, **kwargs):
             Cooling continues after ascent at the same rate as before.
             Requires scenario_params = (T_drop, t_ascent)
             Note: T_drop is the relative drop in temperature
-        'slow_ascent' assumes a slow ascent to shallower depth at a specified
-            time, leading to a temporary change in cooling rate. Requires
-            scenario_params = (rate_ascent, t_ascent_start, ascent_duration)
-            Note: rate_ascent is the cooling rate during the ascent phase
     scenario_params: additional parameters for specific cooling scenarios
         (default: None). See T_scenario options for details.
     return_history: boolean indicating whether to return the full history of
@@ -138,24 +130,6 @@ def aggregate_and_cool(params, *args, **kwargs):
             # simple continuous cooling
             T = cooling_function(T_start, duration, cooling_rate)
 
-        elif T_scenario == 'hot_pulse':
-            # flat pulse of heating at specified time
-            T_pulse, t_pulse_start, pulse_duration = scenario_params
-
-            # cooling before pulse:
-            if duration < t_pulse_start:
-                T = cooling_function(T_start, duration, cooling_rate)
-
-            # during pulse:
-            elif (duration >= t_pulse_start) and (
-                    duration <= (t_pulse_start + pulse_duration)):
-                T = cooling_function(
-                    T_start, t_pulse_start, cooling_rate) + T_pulse  # flat top
-
-            # cooling continues after pulse:
-            elif duration > (t_pulse_start + pulse_duration):
-                T = cooling_function(T_start, duration, cooling_rate)
-
         elif T_scenario == 'hot_spike':
             # sharp spike in temperature at specified time followed by rapid
             # cooling until reaching continous trajectory
@@ -197,47 +171,6 @@ def aggregate_and_cool(params, *args, **kwargs):
                 T = cooling_function(
                     cooling_function(T_start, t_ascent, cooling_rate) - T_drop,
                     duration - t_ascent,
-                    cooling_rate
-                    )
-
-        elif T_scenario == 'slow_ascent':
-            # slow ascent to shallower depth at specified time,
-            # leading to a temporary change in cooling rate
-            rate_ascent, t_ascent_start, ascent_duration = scenario_params
-
-            # before ascent starts (continuous cooling):
-            if duration < t_ascent_start:
-                T = cooling_function(T_start, duration, cooling_rate)
-
-            # during ascent (different cooling rate):
-            elif (duration >= t_ascent_start) and (duration <= (
-                    t_ascent_start + ascent_duration)):
-                T_before_ascent = cooling_function(
-                    T_start,
-                    t_ascent_start,
-                    cooling_rate
-                    )
-                T = cooling_function(
-                    T_before_ascent,
-                    duration-t_ascent_start,
-                    rate_ascent
-                    )
-
-            # after ascent (return to original cooling rate):
-            elif duration > (t_ascent_start + ascent_duration):
-                T_before_ascent = cooling_function(
-                    T_start,
-                    t_ascent_start,
-                    cooling_rate
-                    )
-                T_after_ascent = cooling_function(
-                    T_before_ascent,
-                    ascent_duration,
-                    rate_ascent
-                    )
-                T = cooling_function(
-                    T_after_ascent,
-                    duration - (t_ascent_start + ascent_duration),
                     cooling_rate
                     )
 
