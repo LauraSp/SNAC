@@ -110,7 +110,7 @@ class AggregationModel:
                 self.diamond.age_core, self.diamond.age_rim,
                 self.diamond.c_NT, self.diamond.r_NT,
                 self.diamond.c_agg, self.diamond.r_agg),
-            tol=1e-6
+            tol=1e-7
             )
 
         self.model_results = res.x
