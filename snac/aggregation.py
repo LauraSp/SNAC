@@ -16,7 +16,7 @@ _SCENARIOS = [
 def aggregate(NA, T, t):
     """input: NT, NA, T and t
     returns NA_final after aggregation for time t at temperature T
-    accepts t in Ma, T in deg. C
+    accepts t in Myr, T in deg. C
     """
     rate_const = _PREEXP * np.exp(
         -_EAR/(T+273)
@@ -32,14 +32,14 @@ def Temp_N(t, NT, IaB):
 
     INPUT:
     ------
-    t | float/int: age in (in Myr)
+    t | float/int: elapased time (in Myr)
     NT | float/int: total Nitrogen concentration (ppm)
     IaB | float/int: proportion of B-centres (0 to 1)
 
     RETURNS:
     T | float: temperature (degrees Celsius)
     """
-    t *= 1e6 * 365.25 * 24 * 60 * 60  # convert Ma to seconds
+    t *= 1e6 * 365.25 * 24 * 60 * 60  # convert Myr to seconds
     NA = NT * (1-IaB)
     T = (-81160/(np.log(((NT/NA)-1)/(t*NT*293608))))
 
