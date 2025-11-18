@@ -375,15 +375,16 @@ class AggregationModel:
             f"AggregationModel:\n"
             f"for {self.diamond}\n\n"
             f"Cooling scenario: {self.T_scenario}\n"
-            f"with parameters: {self.scenario_params}\n"
-            f"Initial T: {self.T_start0} deg.C\n"
-            f"Initial cooling rate: {1e3*self.cooling_rate0} K/Gyr"
+            f"- with additional parameters: {self.scenario_params}\n"
+            f"Initial guesses:\n"
+            f"- Starting: {self.T_start0} deg.C\n"
+            f"- Cooling rate: {1e3*self.cooling_rate0} K/Gyr"
         )
 
         if self.fitted:
             msg += (
                 f"\n\nFitted model results:\n"
-                f"Starting T: {self.model_results[0]:.2f} deg.C\n"
-                f"Cooling rate: {1e3*self.model_results[1]:.2f} K/Gyr"
+                f"- Starting T: {self.model_results[0]:.2f} deg.C\n"
+                f"- Cooling rate: {1e3*self.model_results[1]:.2f} K/Gyr"
             )
         return msg

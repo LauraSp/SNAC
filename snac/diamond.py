@@ -86,9 +86,10 @@ class Diamond:
         """
 
         return (
-            f"Diamond with core age {self.age_core} Ma,\n"
-            f"rim age {self.age_rim} Ma,\n"
-            f"and kimberlite age {self.age_kimberlite} Ma.\n"
-            f"Core: [N_T] {self.c_NT} ppm, {self.c_agg*100}%B.\n"
-            f"Rim: [N_T] {self.r_NT} ppm, {self.r_agg*100}%B."
+            "Diamond with\n"
+            f"- core age {self.age_core} Ma,\n"
+            f"- rim age {self.age_rim} Ma,\n"
+            f"- kimberlite age {self.age_kimberlite} Ma.\n"
+            f"- Core: [N_T] {self.c_NT} ppm, {self.c_agg*100}%B.\n"
+            f"- Rim: [N_T] {self.r_NT} ppm, {self.r_agg*100}%B."
         )
