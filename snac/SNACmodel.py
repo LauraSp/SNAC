@@ -329,31 +329,53 @@ class AggregationModel:
             json.dump(data, f, indent=4)
 
     @classmethod
-    def from_json(cls, filepath: str):
+    def from_json(cls, filepath: str, diamond: None | Diamond | str = None):
         """Create AggregationModel instance from JSON file.
 
         PARAMS:
         -------
         filepath | str : path to JSON file
+        diamond | (None or snac.diamond.Diamond or str), optional :
+            optional diamond data. If the model file located at filepath
+            contains diamond data, no further input is required.
+
+            If not, diamond data can be provided as a snac.diamond.Diamond
+            object or the path to a diamond data json file. If the model file
+            contains diamond data AND diamond data is provided separately,
+            the latter takes precedence.
 
         RETURNS:
         --------
         AggregationModel instance
         """
+        diamond = diamond
+
         with open(filepath, 'r') as f:
             data = json.load(f)
 
-        diamond_data = data['diamond']
+        # if user provides a diamond object, use that;
+        # if not, see if diamond is in data
+        if diamond is not None:
+            if isinstance(diamond, Diamond):
+                pass
+            elif isinstance(diamond, str):
+                diamond = Diamond.from_json(diamond)
 
-        diamond = Diamond(
-            age_core=diamond_data['age_core'],
-            age_rim=diamond_data['age_rim'],
-            age_kimberlite=diamond_data['age_kimberlite'],
-            c_NT=diamond_data['c_NT'],
-            c_agg=diamond_data['c_agg'],
-            r_NT=diamond_data['r_NT'],
-            r_agg=diamond_data['r_agg']
-        )
+        elif 'diamond' in data:
+            diamond_data = data['diamond']
+            diamond = Diamond(
+                age_core=diamond_data['age_core'],
+                age_rim=diamond_data['age_rim'],
+                age_kimberlite=diamond_data['age_kimberlite'],
+                c_NT=diamond_data['c_NT'],
+                c_agg=diamond_data['c_agg'],
+                r_NT=diamond_data['r_NT'],
+                r_agg=diamond_data['r_agg']
+            )
+        else:
+            raise ValueError(
+                'Diamond data is required to create AggregationModel.'
+                )
 
         model = cls(
            diamond=diamond,
