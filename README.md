@@ -135,4 +135,4 @@ Note: You may have to activate your virtual Python environment before executing 
 ```
 
 
-[^1]: Matt's paper (to be submitted)
+[^1]: Matt's paper (submitted)
